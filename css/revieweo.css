@@ -1,0 +1,342 @@
+/* ============================================================
+   revieweo.css — Styles personnalisés sur Bootstrap 5
+   Thème : sombre (cinéma / critique)
+   ============================================================ */
+
+/* ── Variables ──────────────────────────────────────────── */
+:root {
+  --rv-bg:          #0d0d0d;
+  --rv-bg-card:     #161616;
+  --rv-bg-card2:    #1e1e1e;
+  --rv-border:      #2a2a2a;
+  --rv-accent:      #f5c518;   /* jaune IMDb */
+  --rv-red:         #e50914;
+  --rv-text:        #f0f0f0;
+  --rv-muted:       #888;
+  --rv-shadow:      0 4px 24px rgba(0,0,0,.5);
+  --rv-radius:      10px;
+}
+
+/* ── Base ───────────────────────────────────────────────── */
+body {
+  background-color: var(--rv-bg);
+  color: var(--rv-text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main { flex: 1; }
+
+/* ── Navbar ─────────────────────────────────────────────── */
+.rv-navbar {
+  background: rgba(13,13,13,.97);
+  border-bottom: 1px solid var(--rv-border);
+  backdrop-filter: blur(10px);
+}
+
+.rv-navbar .navbar-brand {
+  font-size: 1.3rem;
+  letter-spacing: .03em;
+  color: var(--rv-accent) !important;
+}
+
+.rv-navbar .nav-link {
+  color: #aaa !important;
+  font-size: .9rem;
+  padding: .4rem .75rem !important;
+  border-radius: 6px;
+  transition: all .2s;
+}
+
+.rv-navbar .nav-link:hover,
+.rv-navbar .nav-link.active {
+  color: var(--rv-text) !important;
+  background: var(--rv-bg-card2);
+}
+
+.rv-search {
+  background: var(--rv-bg-card2) !important;
+  border-color: var(--rv-border) !important;
+  color: var(--rv-text) !important;
+}
+
+.rv-search:focus {
+  box-shadow: none !important;
+  border-color: var(--rv-accent) !important;
+}
+
+.rv-search::placeholder { color: var(--rv-muted) !important; }
+
+.rv-role-badge {
+  background: rgba(245,197,24,.15);
+  color: var(--rv-accent);
+  border: 1px solid rgba(245,197,24,.3);
+  font-size: .65rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  border-radius: 50px;
+  padding: .15rem .5rem;
+}
+
+.rv-dropdown {
+  background: var(--rv-bg-card2);
+  border: 1px solid var(--rv-border);
+}
+.rv-dropdown .dropdown-item {
+  color: var(--rv-text);
+  font-size: .9rem;
+}
+.rv-dropdown .dropdown-item:hover {
+  background: var(--rv-bg-card);
+  color: var(--rv-accent);
+}
+.rv-dropdown .dropdown-divider { border-color: var(--rv-border); }
+
+/* ── Hero ───────────────────────────────────────────────── */
+.rv-hero {
+  background: linear-gradient(135deg, #0d0d0d 0%, #1a0a0a 50%, #0a0a1a 100%);
+  border-bottom: 1px solid var(--rv-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.rv-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(245,197,24,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Filtres ────────────────────────────────────────────── */
+.rv-filters {
+  background: rgba(13,13,13,.97);
+  border-bottom: 1px solid var(--rv-border);
+  backdrop-filter: blur(8px);
+}
+
+.rv-select {
+  background: var(--rv-bg-card2) !important;
+  border-color: var(--rv-border) !important;
+  color: var(--rv-text) !important;
+  font-size: .85rem;
+}
+
+.rv-select:focus {
+  box-shadow: none !important;
+  border-color: var(--rv-accent) !important;
+}
+
+/* ── Cartes ─────────────────────────────────────────────── */
+.rv-card {
+  background: var(--rv-bg-card);
+  border: 1px solid var(--rv-border);
+  border-radius: var(--rv-radius);
+  color: var(--rv-text);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.rv-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(245,197,24,.3);
+  box-shadow: var(--rv-shadow);
+}
+
+.rv-card-header {
+  background: var(--rv-bg-card2);
+  border-bottom: 1px solid var(--rv-border);
+  padding: 1rem 1.25rem;
+  border-radius: var(--rv-radius) var(--rv-radius) 0 0 !important;
+}
+
+/* Carte épinglée */
+.rv-pinned {
+  border-color: rgba(245,197,24,.5) !important;
+  box-shadow: 0 0 0 1px rgba(245,197,24,.2);
+}
+
+.rv-pin-badge {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  background: var(--rv-accent);
+  color: #000;
+  padding: .2rem .6rem;
+  border-radius: 50px;
+  font-size: .72rem;
+  font-weight: 700;
+  z-index: 1;
+}
+
+/* ── Badges ─────────────────────────────────────────────── */
+.rv-note-badge {
+  background: rgba(245,197,24,.15);
+  color: var(--rv-accent);
+  border: 1px solid rgba(245,197,24,.3);
+  font-size: .8rem;
+  padding: .3rem .65rem;
+  border-radius: 50px;
+}
+
+.rv-cat-badge {
+  background: rgba(255,255,255,.08);
+  color: #ccc;
+  border: 1px solid var(--rv-border);
+  font-size: .75rem;
+  font-weight: 500;
+}
+
+/* ── Lien ───────────────────────────────────────────────── */
+.rv-link:hover { color: var(--rv-accent) !important; }
+
+/* ── Meta ───────────────────────────────────────────────── */
+.rv-meta { border-color: var(--rv-border) !important; }
+
+/* ── Formulaires ────────────────────────────────────────── */
+.rv-input, .rv-textarea {
+  background: var(--rv-bg-card2) !important;
+  border-color: var(--rv-border) !important;
+  color: var(--rv-text) !important;
+  border-radius: var(--rv-radius) !important;
+  font-size: .95rem;
+}
+
+.rv-input:focus, .rv-textarea:focus {
+  box-shadow: 0 0 0 .2rem rgba(245,197,24,.25) !important;
+  border-color: var(--rv-accent) !important;
+  outline: none;
+}
+
+.rv-input::placeholder,
+.rv-textarea::placeholder { color: var(--rv-muted) !important; }
+
+.rv-textarea {
+  resize: vertical;
+  min-height: 180px;
+}
+
+/* Slider de note */
+.rv-range {
+  accent-color: var(--rv-accent);
+}
+
+.rv-note-display {
+  min-width: 3.5rem;
+}
+
+/* Checkboxes catégories */
+.rv-checkbox-cat .form-check-input {
+  background-color: var(--rv-bg-card2);
+  border-color: var(--rv-border);
+}
+.rv-checkbox-cat .form-check-input:checked {
+  background-color: var(--rv-accent);
+  border-color: var(--rv-accent);
+}
+.rv-checkbox-cat .form-check-input:checked + label {
+  background: rgba(245,197,24,.2);
+  color: var(--rv-accent);
+  border-color: rgba(245,197,24,.5);
+}
+
+/* ── Tableau ────────────────────────────────────────────── */
+.rv-table {
+  color: var(--rv-text);
+  vertical-align: middle;
+}
+
+.rv-table thead th {
+  background: var(--rv-bg-card2);
+  border-color: var(--rv-border);
+  color: var(--rv-muted);
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-weight: 600;
+}
+
+.rv-table tbody tr {
+  border-color: var(--rv-border);
+  transition: background .15s;
+}
+
+.rv-table tbody tr:hover { background: var(--rv-bg-card2); }
+
+.rv-table td { border-color: var(--rv-border); }
+
+/* ── Bouton Like ────────────────────────────────────────── */
+.rv-like-btn {
+  background: var(--rv-bg-card2);
+  border: 1.5px solid var(--rv-border);
+  color: var(--rv-muted);
+  padding: .45rem 1rem;
+  border-radius: 50px;
+  font-size: .9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+}
+
+.rv-like-btn:hover {
+  border-color: var(--rv-red);
+  color: var(--rv-red);
+  background: rgba(229,9,20,.08);
+}
+
+.rv-like-btn.liked {
+  border-color: var(--rv-red);
+  color: var(--rv-red);
+  background: rgba(229,9,20,.12);
+}
+
+.rv-like-btn.rv-like-bounce {
+  animation: like-bounce .35s ease;
+}
+
+@keyframes like-bounce {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.18); }
+}
+
+/* ── Note étoiles ───────────────────────────────────────── */
+.rv-big-note { min-width: 90px; }
+.rv-stars { font-size: .85rem; }
+
+/* ── Contenu texte ──────────────────────────────────────── */
+.rv-contenu { font-size: 1rem; }
+
+/* ── Authentification (page centrée) ────────────────────── */
+.rv-auth-wrapper { min-height: calc(100vh - 56px - 80px); }
+
+/* ── Fil d'Ariane ───────────────────────────────────────── */
+.rv-breadcrumb {
+  background: transparent;
+  font-size: .85rem;
+  padding: 0;
+  margin: 0;
+}
+.rv-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  color: var(--rv-muted);
+}
+
+/* ── Cards action (admin dashboard) ────────────────────── */
+.rv-action-card:hover {
+  border-color: rgba(245,197,24,.4) !important;
+  background: var(--rv-bg-card2) !important;
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+.rv-footer {
+  background: var(--rv-bg-card);
+  border-top: 1px solid var(--rv-border);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 576px) {
+  .rv-hero { text-align: center; }
+}
