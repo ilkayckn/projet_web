@@ -1,84 +1,156 @@
-# 🎬 CinéBase — Projet Web Cinéma
+# 🎬 REVIEWEO — Plateforme de critiques
 
-Base de projet web sur le thème du film et du cinéma.
+Application web full-stack de critiques et de notation (films, séries, jeux vidéo…).
 
-## Structure du projet
+## ⚙️ Stack technique
+
+| Couche | Technologie |
+|--------|------------|
+| Frontend | HTML + **Bootstrap 5** + CSS personnalisé |
+| Interactions | **JavaScript** (AJAX fetch pour les likes) |
+| Backend | **PHP 8+ OOP** (MVC simplifié) |
+| Base de données | **MySQL / MariaDB** (PDO, requêtes préparées) |
+
+## 📁 Architecture du projet
 
 ```
 projet_web/
-├── index.html          # Page d'accueil (hero, top films, genres, films récents)
-├── films.html          # Catalogue complet avec recherche et filtres
-├── film-details.html   # Fiche détaillée d'un film
+├── index.php                  # Page d'accueil (liste des critiques)
+├── login.php                  # Connexion
+├── register.php               # Inscription
+├── logout.php                 # Déconnexion
+├── critique.php               # Détail d'une critique
+├── create.php                 # Créer une critique (rôle : critique+)
+├── edit.php                   # Modifier une critique
+├── delete.php                 # Supprimer une critique
+├── dashboard.php              # Tableau de bord du critique
+│
+├── admin/
+│   ├── index.php              # Tableau de bord admin
+│   ├── users.php              # Gérer les utilisateurs
+│   ├── critiques.php          # Gérer toutes les critiques
+│   ├── update_role.php        # Changer le rôle d'un utilisateur
+│   ├── delete_user.php        # Supprimer un utilisateur
+│   ├── delete_critique.php    # Supprimer une critique (admin)
+│   └── pin.php                # Épingler / désépingler
+│
+├── ajax/
+│   └── like.php               # Endpoint AJAX pour les likes
+│
+├── app/
+│   ├── config/
+│   │   └── database.php       # Connexion PDO (singleton)
+│   ├── models/
+│   │   ├── User.php
+│   │   ├── Critique.php
+│   │   ├── Categorie.php
+│   │   └── Like.php
+│   ├── controllers/
+│   │   ├── AuthController.php
+│   │   ├── CritiqueController.php
+│   │   └── AdminController.php
+│   └── helpers/
+│       └── auth.php           # Fonctions session / rôle / flash
+│
+├── views/
+│   ├── partials/
+│   │   ├── header.php         # Navbar Bootstrap
+│   │   └── footer.php
+│   ├── auth/
+│   │   ├── login.php
+│   │   └── register.php
+│   ├── critiques/
+│   │   ├── list.php           # Grille de critiques + filtres
+│   │   ├── detail.php         # Fiche complète + like AJAX
+│   │   └── form.php           # Formulaire création / édition
+│   ├── dashboard/
+│   │   └── index.php          # Dashboard critique
+│   └── admin/
+│       ├── dashboard.php
+│       ├── users.php
+│       └── critiques.php
+│
 ├── css/
-│   └── style.css       # Feuille de style (thème cinéma sombre)
+│   ├── revieweo.css           # Thème sombre personnalisé
+│   └── style.css              # (héritage CinéBase)
 ├── js/
-│   ├── films.js        # Données des films + fonctions (filtre, tri, rendu)
-│   └── main.js         # Navigation, interactions UI, toast
-└── images/             # Dossier pour les affiches (à remplir)
+│   ├── app.js                 # AJAX likes
+│   ├── films.js               # (héritage)
+│   └── main.js                # (héritage)
+└── sql/
+    └── revieweo.sql           # Schéma complet + données de démo
 ```
 
-## Pages
+## 🗄️ Base de données
 
-| Page | Description |
-|------|-------------|
-| `index.html` | Page d'accueil avec film mis en avant, statistiques, top films, genres et films récents |
-| `films.html` | Catalogue complet — recherche full-text, filtre par genre, période et tri |
-| `film-details.html` | Fiche d'un film : affiche, synopsis, casting, genres, films similaires |
+### Schéma
 
-## Fonctionnalités incluses
+```sql
+User(id, pseudo, email, password, role, created_at)
+Critique(id, titre, contenu, note, date_creation, date_modification, epingle, id_user)
+Categorie(id, nom)
+Like(id_user, id_critique, created_at)          -- clé primaire composite
+Critique_Categorie(id_critique, id_categorie)   -- table pivot
+```
 
-- 🌑 Thème cinéma sombre (noir, or, rouge)
-- 📱 Design responsive (mobile, tablette, desktop)
-- 🔍 Recherche en temps réel (titre, réalisateur, acteur)
-- 🎭 Filtre par genre, période et tri
-- ⭐ Notes et durées formatées
-- 🔗 Navigation dynamique via URL (`?id=`, `?genre=`, `?q=`)
-- ♿ Balises ARIA pour l'accessibilité
-
-## Comment démarrer
-
-Ouvrez simplement `index.html` dans votre navigateur, ou servez le dossier avec un serveur local :
+### Installation
 
 ```bash
-# Python
-python3 -m http.server 8080
-
-# Node.js (npx)
-npx serve .
+mysql -u root -p < sql/revieweo.sql
 ```
 
-Puis ouvrez [http://localhost:8080](http://localhost:8080).
+## 🚀 Lancement
 
-## Étendre le projet
+### Prérequis
+- PHP 8.0+
+- MySQL / MariaDB
+- Serveur web (Apache / Nginx) **ou** PHP built-in server
 
-### Ajouter un film
+### Configuration
 
-Dans `js/films.js`, ajoutez un objet dans le tableau `FILMS` :
+Éditez `app/config/database.php` et ajustez les constantes :
 
-```js
-{
-  id: 13,
-  titre: "Mon Film",
-  annee: 2024,
-  realisateur: "Nom Prénom",
-  acteurs: "Acteur 1, Acteur 2",
-  genres: ["Action", "Drame"],
-  note: 7.5,
-  duree: 120,          // en minutes
-  synopsis: "Description…",
-  affiche: "images/mon-film.jpg",  // null si pas d'image
-  featured: false,
-}
+```php
+private const DB_HOST = 'localhost';
+private const DB_NAME = 'revieweo';
+private const DB_USER = 'root';
+private const DB_PASS = '';
 ```
 
-### Ajouter une affiche
+### Serveur PHP intégré (développement)
 
-Déposez l'image dans le dossier `images/` et renseignez le chemin dans `affiche`.
-
-### Ajouter un genre
-
-Dans le tableau `GENRES` de `js/films.js` :
-
-```js
-{ nom: "Documentaire", icone: "📹" }
+```bash
+cd projet_web
+php -S localhost:8080
+# Ouvrir http://localhost:8080
 ```
+
+## 👥 Comptes de démonstration
+
+| Email | Mot de passe | Rôle |
+|-------|-------------|------|
+| `admin@revieweo.fr` | `password` | Admin |
+| `critique1@revieweo.fr` | `password` | Critique |
+| `user1@revieweo.fr` | `password` | Utilisateur |
+
+## 🔐 Gestion des rôles
+
+| Action | Utilisateur | Critique | Admin |
+|--------|:-----------:|:--------:|:-----:|
+| Voir les critiques | ✅ | ✅ | ✅ |
+| Liker (AJAX) | ✅ | ✅ | ✅ |
+| S'inscrire / connexion | ✅ | ✅ | ✅ |
+| Créer une critique | ❌ | ✅ | ✅ |
+| Modifier / supprimer ses critiques | ❌ | ✅ | ✅ |
+| Tableau de bord | ❌ | ✅ | ✅ |
+| Gérer tous les utilisateurs | ❌ | ❌ | ✅ |
+| Gérer toutes les critiques | ❌ | ❌ | ✅ |
+| Épingler des critiques | ❌ | ❌ | ✅ |
+
+## 🔒 Sécurité
+
+- Mots de passe hashés avec `password_hash()` (bcrypt)
+- Requêtes SQL via PDO + paramètres liés (protection SQL injection)
+- Sorties HTML échappées avec `htmlspecialchars()` (protection XSS)
+- Vérification de rôle côté serveur pour chaque action sensible
+- Logout via POST (protection CSRF basique)
