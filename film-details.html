@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Détail du film — CinéBase</title>
+  <meta name="description" content="Fiche détaillée d'un film sur CinéBase." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════════════════════ -->
+  <header>
+    <nav class="navbar" role="navigation" aria-label="Navigation principale">
+      <div class="container">
+        <a href="index.html" class="navbar-brand">
+          <span class="logo-icon" aria-hidden="true">🎬</span>
+          CinéBase
+        </a>
+        <ul class="navbar-nav">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="films.html">Films</a></li>
+          <li><a href="films.html?genre=Action">Action</a></li>
+          <li><a href="films.html?genre=Drame">Drame</a></li>
+          <li><a href="films.html?genre=Science-Fiction">Sci-Fi</a></li>
+        </ul>
+        <div class="navbar-actions">
+          <form class="search-form" role="search" aria-label="Rechercher un film">
+            <input type="search" placeholder="Rechercher…" aria-label="Terme de recherche" />
+            <button type="submit" aria-label="Lancer la recherche">🔍</button>
+          </form>
+        </div>
+        <button class="navbar-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════
+       DÉTAIL DU FILM
+  ══════════════════════════════════════════════════════ -->
+  <main>
+
+    <!-- En-tête -->
+    <div class="film-detail-hero" id="film-detail-hero">
+      <!-- Rempli par JS -->
+    </div>
+
+    <!-- Films similaires -->
+    <section class="similar-films" aria-labelledby="similar-title">
+      <div class="container">
+        <h2 class="section-title" id="similar-title">🎬 Films similaires</h2>
+        <div class="films-grid" id="similar-grid">
+          <!-- Rempli par JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="navbar-brand">
+            <span class="logo-icon" aria-hidden="true">🎬</span>
+            CinéBase
+          </a>
+          <p>Votre référence cinéma.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="films.html">Tous les films</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Genres</h4>
+          <ul>
+            <li><a href="films.html?genre=Action">Action</a></li>
+            <li><a href="films.html?genre=Drame">Drame</a></li>
+            <li><a href="films.html?genre=Comédie">Comédie</a></li>
+            <li><a href="films.html?genre=Science-Fiction">Science-Fiction</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Infos</h4>
+          <ul>
+            <li><a href="#">À propos</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> CinéBase — Projet Web</span>
+        <span>Fait avec ❤️ et 🎬</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/films.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const params = new URLSearchParams(window.location.search);
+    const filmId = params.get("id");
+    const film   = getFilmById(filmId);
+
+    if (!film) {
+      // Film introuvable
+      document.getElementById("film-detail-hero").innerHTML = `
+        <div class="container" style="padding: 4rem 0; text-align:center; color: var(--text-secondary)">
+          <div style="font-size:3rem;margin-bottom:1rem">🎬</div>
+          <h1 style="margin-bottom:.5rem">Film introuvable</h1>
+          <p style="margin-bottom:1.5rem">Ce film n'existe pas dans notre catalogue.</p>
+          <a href="films.html" class="btn btn-primary">Voir tous les films</a>
+        </div>`;
+      document.getElementById("similar-grid").innerHTML = "";
+    } else {
+      // Mise à jour du titre de la page
+      document.title = `${film.titre} (${film.annee}) — CinéBase`;
+
+      // Affiche / placeholder
+      const posterHTML = film.affiche
+        ? `<img src="${film.affiche}" alt="Affiche de ${film.titre}">`
+        : `<div class="film-detail-poster-placeholder">
+             <span class="icon">🎬</span>
+             <span>${film.titre}</span>
+           </div>`;
+
+      // Genres (badges)
+      const genresHTML = film.genres.map(
+        (g) => `<a href="films.html?genre=${encodeURIComponent(g)}" class="badge badge-genre">${g}</a>`
+      ).join("");
+
+      // Hero
+      document.getElementById("film-detail-hero").innerHTML = `
+        <div class="container">
+          <div class="film-detail-hero">
+
+            <div class="film-detail-poster">${posterHTML}</div>
+
+            <div class="film-detail-info">
+              <h1>${film.titre}</h1>
+              <div class="film-detail-meta">
+                <span class="rating-big">⭐ ${film.note} <small style="font-size:.75rem;color:var(--text-secondary)">/ 10</small></span>
+                <span>📅 ${film.annee}</span>
+                <span>⏱ ${formatDuree(film.duree)}</span>
+                <span>🎥 ${film.realisateur}</span>
+              </div>
+
+              <div class="film-detail-genres">${genresHTML}</div>
+
+              <p class="film-detail-synopsis">${film.synopsis}</p>
+
+              <div class="film-detail-cast">
+                <h3>Casting principal</h3>
+                <p>${film.acteurs}</p>
+              </div>
+
+              <div class="film-detail-actions">
+                <button class="btn btn-primary" onclick="window.showToast('✅ Ajouté à votre liste !')">+ Ma liste</button>
+                <a href="films.html" class="btn btn-outline">← Retour au catalogue</a>
+              </div>
+            </div>
+
+          </div>
+        </div>`;
+
+      // Films similaires (même genre, excluant ce film)
+      const premierGenre = film.genres[0];
+      const similaires = filtrerFilms({ genre: premierGenre, tri: "note" })
+        .filter((f) => f.id !== film.id)
+        .slice(0, 6);
+
+      if (similaires.length > 0) {
+        document.getElementById("similar-grid").innerHTML = similaires.map(buildFilmCard).join("");
+      } else {
+        document.getElementById("similar-grid").innerHTML =
+          `<p style="color:var(--text-secondary)">Aucun film similaire pour l'instant.</p>`;
+      }
+    }
+  </script>
+
+</body>
+</html>

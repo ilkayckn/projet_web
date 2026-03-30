@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CinéBase — Votre référence cinéma</title>
+  <meta name="description" content="CinéBase — Découvrez les meilleurs films, filtrez par genre, notez et explorez le monde du cinéma." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════════════════════ -->
+  <header>
+    <nav class="navbar" role="navigation" aria-label="Navigation principale">
+      <div class="container">
+
+        <!-- Logo -->
+        <a href="index.html" class="navbar-brand">
+          <span class="logo-icon" aria-hidden="true">🎬</span>
+          CinéBase
+        </a>
+
+        <!-- Liens -->
+        <ul class="navbar-nav">
+          <li><a href="index.html" class="active">Accueil</a></li>
+          <li><a href="films.html">Films</a></li>
+          <li><a href="films.html?genre=Action">Action</a></li>
+          <li><a href="films.html?genre=Drame">Drame</a></li>
+          <li><a href="films.html?genre=Science-Fiction">Sci-Fi</a></li>
+        </ul>
+
+        <!-- Actions -->
+        <div class="navbar-actions">
+          <form class="search-form" role="search" aria-label="Rechercher un film">
+            <input type="search" placeholder="Rechercher…" aria-label="Terme de recherche" />
+            <button type="submit" aria-label="Lancer la recherche">🔍</button>
+          </form>
+        </div>
+
+        <!-- Hamburger mobile -->
+        <button class="navbar-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+
+      </div>
+    </nav>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════════════ -->
+  <section class="hero" aria-label="Film mis en avant">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-content" id="hero-content">
+        <!-- Rempli par JS -->
+      </div>
+    </div>
+  </section>
+
+  <main>
+
+    <!-- ══════════════════════════════════════════════════
+         STATISTIQUES
+    ══════════════════════════════════════════════════ -->
+    <div class="stats-bar" aria-label="Statistiques du catalogue">
+      <div class="container" id="stats-bar">
+        <!-- Rempli par JS -->
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         FILMS POPULAIRES
+    ══════════════════════════════════════════════════ -->
+    <section class="section" aria-labelledby="popular-title">
+      <div class="container">
+        <h2 class="section-title" id="popular-title">🏆 Films les mieux notés</h2>
+        <div class="films-grid" id="top-films-grid">
+          <!-- Rempli par JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         GENRES
+    ══════════════════════════════════════════════════ -->
+    <section class="section" aria-labelledby="genres-title">
+      <div class="container">
+        <h2 class="section-title" id="genres-title">🎭 Explorer par genre</h2>
+        <div class="genres-grid" id="genres-grid">
+          <!-- Rempli par JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         FILMS RÉCENTS
+    ══════════════════════════════════════════════════ -->
+    <section class="section" aria-labelledby="recent-title">
+      <div class="container">
+        <h2 class="section-title" id="recent-title">🆕 Films récents</h2>
+        <div class="films-grid" id="recent-films-grid">
+          <!-- Rempli par JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="navbar-brand">
+            <span class="logo-icon" aria-hidden="true">🎬</span>
+            CinéBase
+          </a>
+          <p>Votre référence cinéma : découvrez, explorez et retrouvez tous vos films préférés au même endroit.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="films.html">Tous les films</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Genres</h4>
+          <ul>
+            <li><a href="films.html?genre=Action">Action</a></li>
+            <li><a href="films.html?genre=Drame">Drame</a></li>
+            <li><a href="films.html?genre=Comédie">Comédie</a></li>
+            <li><a href="films.html?genre=Science-Fiction">Science-Fiction</a></li>
+            <li><a href="films.html?genre=Thriller">Thriller</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Infos</h4>
+          <ul>
+            <li><a href="#">À propos</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> CinéBase — Projet Web</span>
+        <span>Fait avec ❤️ et 🎬</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/films.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    /* ── Page d'accueil ── */
+
+    // Année dans le footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Hero : film featured aléatoire
+    const featuredFilms = FILMS.filter((f) => f.featured);
+    const heroFilm = featuredFilms[Math.floor(Math.random() * featuredFilms.length)];
+
+    document.getElementById("hero-content").innerHTML = `
+      <span class="hero-badge">⭐ Mis en avant</span>
+      <h1 class="hero-title">${heroFilm.titre} <span>(${heroFilm.annee})</span></h1>
+      <div class="hero-meta">
+        <span class="rating">⭐ ${heroFilm.note} / 10</span>
+        <span>${formatDuree(heroFilm.duree)}</span>
+        <span>Réal. ${heroFilm.realisateur}</span>
+        <span>${heroFilm.genres.join(" · ")}</span>
+      </div>
+      <p class="hero-description">${heroFilm.synopsis}</p>
+      <div class="hero-actions">
+        <a href="film-details.html?id=${heroFilm.id}" class="btn btn-primary">▶ Voir les détails</a>
+        <a href="films.html" class="btn btn-outline">📋 Tous les films</a>
+      </div>
+    `;
+
+    // Stats
+    const totalFilms = FILMS.length;
+    const noteMoyenne = (FILMS.reduce((s, f) => s + f.note, 0) / totalFilms).toFixed(1);
+    const totalGenres = new Set(FILMS.flatMap((f) => f.genres)).size;
+    const anneesCouverte = Math.max(...FILMS.map((f) => f.annee)) - Math.min(...FILMS.map((f) => f.annee));
+
+    document.getElementById("stats-bar").innerHTML = `
+      <div class="stat-item"><span class="value">${totalFilms}</span><span class="label">Films au catalogue</span></div>
+      <div class="stat-item"><span class="value">${noteMoyenne}</span><span class="label">Note moyenne</span></div>
+      <div class="stat-item"><span class="value">${totalGenres}</span><span class="label">Genres disponibles</span></div>
+      <div class="stat-item"><span class="value">${anneesCouverte}</span><span class="label">Années couvertes</span></div>
+    `;
+
+    // Films les mieux notés (top 6)
+    const topFilms = filtrerFilms({ tri: "note" }).slice(0, 6);
+    document.getElementById("top-films-grid").innerHTML = topFilms.map(buildFilmCard).join("");
+
+    // Films récents (6 derniers par année)
+    const recentFilms = filtrerFilms({ tri: "annee_desc" }).slice(0, 6);
+    document.getElementById("recent-films-grid").innerHTML = recentFilms.map(buildFilmCard).join("");
+
+    // Genres
+    document.getElementById("genres-grid").innerHTML = GENRES.map((g) => `
+      <a href="films.html?genre=${encodeURIComponent(g.nom)}" class="genre-card">
+        <span class="icon">${g.icone}</span>
+        <span>${g.nom}</span>
+      </a>
+    `).join("");
+  </script>
+
+</body>
+</html>
